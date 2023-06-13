@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: 'Montserrat', sans-serif, 'Great-Vibes';
+}
+ 
+.spacer{
+  aspect-ratio: 960/200;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.layer1{
+  background-image: url('/public/svg/layered-waves-haikei.svg');
+}
+
+.flip {
+  transform: rotate(180deg);
+}
+
+.layer2{
+  background-image: url('/public/svg/stacked-waves-haikei.svg');
+}
+
+.layer3 {
+  background-image: url('/public/svg/double-waves-corner.svg'); 
+}
+
+.spacer3{
+  aspect-ratio: 960/400;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover; 
+}

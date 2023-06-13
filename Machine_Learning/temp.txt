@@ -1,0 +1,9 @@
+[
+    {"Symptom1": "itching", "Symptom2": "skin_rash", "Symptom3":"nodal_skin_eruptions", "Symptom4":"continuous_sneezing", "Symptom5": "shivering" }
+]
+
+', 'skin_rash', '', '', '', 'chills'
+
+[
+    {'itching', 'skin_rash', 'nodal_skin_eruptions', 'continuous_sneezing', 'shivering'}
+]
