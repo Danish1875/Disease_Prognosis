@@ -6,7 +6,7 @@ const GoogleMaps = () => {
     useEffect(() => {
         const loadGoogleMaps = async () => {
             const loader = new Loader({
-                apiKey: 'AIzaSyAhj2VjaWW980pxbqs2q3mNKI7tDBtRXW4',
+                apiKey: process.env.GOOGLE_MAPS_API_KEY,
                 version: 'weekly',
                 // ...additionalOptions
             });
