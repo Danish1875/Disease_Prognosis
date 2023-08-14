@@ -3,6 +3,8 @@
 ## Introduction
 Welcome to the Disease Prognosis Web App! This web application is designed to help users predict the most likely disease based on input symptoms. It utilizes machine learning algorithms and offers a user-friendly dashboard for a seamless experience.
 
+![Screenshot 2023-08-15 010436](https://github.com/Danish1875/Disease_Prognosis/assets/111090637/ed6cedb3-0372-41fa-9dae-14731dd57d3e)
+
 ## Project Overview
 This project is built using JavaScript for the web app and Python for the machine learning part. The web app features a user login system powered by Firebase Authentication, which allows users to create profiles and store personal information like gender, age, weight, height, smoking, and alcohol habits.
 
@@ -28,6 +30,10 @@ To use the Disease Prognosis Web App, follow these simple steps:
 3. View Results: After submitting your symptoms, the web app will display the predicted disease. You can access additional information about the disease and its potential treatments.
 
 4. Find Nearby Medical Facilities: The dashboard also provides information about the nearest hospitals and clinics using the Google Maps API. This feature can be helpful in finding medical assistance quickly.
+
+![Screenshot 2023-08-15 010538](https://github.com/Danish1875/Disease_Prognosis/assets/111090637/e4adf111-611b-42cf-9a10-ba44aae366b8)
+
+![Screenshot 2023-08-15 012127](https://github.com/Danish1875/Disease_Prognosis/assets/111090637/00688432-401d-4c17-8108-24eafebf7da8)
 
 ## Contact Our Doctors
 It is understandable that getting personalized advice is crucial when dealing with medical concerns. That's why we offer the option to contact our expert doctors directly. Choose your area of expertise from the list, and you'll be connected with a specialist who can address your concerns.
