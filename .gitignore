@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+*.db
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+.ENV/
+.VENV/
+
+# Environment variables
+.env
+.env.*
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# VSCode
+.vscode/
+
+# MacOS
+.DS_Store
+
+# PyCharm
+.idea/
+
+# Node modules (for web app)
+node_modules/
+
+# Build output
+dist/
+build/
