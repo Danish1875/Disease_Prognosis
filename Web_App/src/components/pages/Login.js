@@ -9,6 +9,7 @@ import { signInWithPopup } from 'firebase/auth';
 import { GoogleAuthProvider } from "firebase/auth";
 import { auth } from "../../firebase.js";
 import AuthDetails from '../AuthDetails';
+import { getDatabase, ref, onValue, set } from 'firebase/database';
 
 
 const provider = new GoogleAuthProvider();
@@ -30,37 +31,63 @@ export default function Login() {
 
     const handleLogin = (event) => {
         event.preventDefault();
-        // login
-
         if (!username || !password) {
             alert('Please enter valid email & password');
             return;
-          }
+        }
 
         signInWithEmailAndPassword(auth, username, password)
             .then((userCredential) => {
-                console.log(userCredential);
+                // Get user data from database after login
+                const database = getDatabase();
+                const userRef = ref(database, `users/${userCredential.user.uid}`);
+                onValue(userRef, (snapshot) => {
+                    const data = snapshot.val();
+                    if (!data) {
+                        // If no profile exists, create default profile
+                        set(userRef, {
+                            firstName: userCredential.user.displayName || 'New',
+                            lastName: 'User',
+                            age: '',
+                            weight: '',
+                            gender: ''
+                        });
+                    }
+                });
                 navigate('/dashboard')
-
             })
             .catch((error) => {
                 console.log(error);
+                alert('Login failed: ' + error.message);
             });
-        console.log("loggedin")
-
     };
 
     const handleGoogleLogin = (event) => {
-
         signInWithPopup(auth, provider)
             .then((userCredential) => {
-                console.log(userCredential);
+                // Get or create user data after Google login
+                const database = getDatabase();
+                const userRef = ref(database, `users/${userCredential.user.uid}`);
+                onValue(userRef, (snapshot) => {
+                    const data = snapshot.val();
+                    if (!data) {
+                        // If no profile exists, create one from Google data
+                        const names = userCredential.user.displayName.split(' ');
+                        set(userRef, {
+                            firstName: names[0] || '',
+                            lastName: names.slice(1).join(' ') || '',
+                            age: '',
+                            weight: '',
+                            gender: ''
+                        });
+                    }
+                });
                 navigate('/dashboard')
             })
             .catch((error) => {
                 console.log(error);
+                alert('Google login failed: ' + error.message);
             });
-        console.log("loggedin")
     }
 
     const handleRegister = (event) => {

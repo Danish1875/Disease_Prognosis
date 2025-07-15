@@ -41,16 +41,9 @@ disease = ['Fungal infection', 'Allergy', 'GERD', 'Chronic cholestasis', 'Drug R
            'Arthritis', '(vertigo) Paroymsal  Positional Vertigo', 'Acne', 'Urinary tract infection', 'Psoriasis',
            'Impetigo']
 
-l2 = []
-
-for x in range(0, len(l1)):
-    l2.append(0)
-
 
 @app.route('/predict', methods=['POST'])
-
 def predict():
-
     s1 = request.form.get('s1')
     s2 = request.form.get('s2')
     s3 = request.form.get('s3')
@@ -72,23 +65,30 @@ def predict():
     #print(type(symptoms))
     print(psymptoms)
 
-    
-    for k in range(0,len(l1)):
+    # Initialize l2 inside the function to avoid cross-request contamination
+    l2 = [0] * len(l1)
+    for k in range(0, len(l1)):
         for z in psymptoms:
             if z == l1[k]:
                 l2[k] = 1
 
-            
     inputTest = [l2]
     predict = model.predict(inputTest)
     predicted = predict[0]
 
     diseasePred = disease[predicted] if predicted < len(disease) else "Unknown Disease"
-    print("output" ,diseasePred)
+    print("output", diseasePred)
 
-    return jsonify(diseasePred)
+    # Return as JSON object for frontend compatibility
+    return jsonify({'disease': diseasePred})
 
 
+@app.route('/', methods=['GET'])
+def index() :
+    return 'Disease Prognosis'
+
+if __name__ == "__main__":
+    app.run(debug=True, host='0.0.0.0')
 @app.route('/', methods=['GET'])
 def index() :
     return 'Disease Prognosis'

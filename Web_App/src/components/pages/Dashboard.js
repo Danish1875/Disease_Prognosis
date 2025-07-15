@@ -151,6 +151,9 @@ const Dashboard = () => {
       'silver_like_dusting', 'small_dents_in_nails', 'inflammatory_nails', 'blister', 'red_sore_around_nose', 'yellow_crust_ooze'
   ];
 
+  // Deduplicate options to avoid duplicate keys in React
+  const uniqueOptions = Array.from(new Set(options));
+
   const handleChange = event => {
     const { name, value } = event.target;
     setSelectedOptions(prevState => ({
@@ -162,25 +165,26 @@ const Dashboard = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Create the payload object with the selected options
-    const payload = selectedOptions;
-    console.log(payload);
+    // Use FormData to send the symptoms as required by Flask
+    const formData = new FormData();
+    formData.append('s1', selectedOptions.s1 || '');
+    formData.append('s2', selectedOptions.s2 || '');
+    formData.append('s3', selectedOptions.s3 || '');
+    formData.append('s4', selectedOptions.s4 || '');
+    formData.append('s5', selectedOptions.s5 || '');
 
     const headers = {
-      'Content-Type': 'multipart/form-data',
-      // Add other headers if required
+      // 'Content-Type': 'multipart/form-data', // Let Axios set this automatically for FormData
     };
 
-    // Send the Axios request
-    axios.post('http://127.0.0.1:5000/predict', payload,  { headers })
+    axios.post('http://localhost:5000/predict', formData, { headers })
       .then(response => {
-        // Process the response data
-        console.log(response.data);
-        setResponseData(response.data);
+        // The backend now returns { disease: "..." }
+        setResponseData(response.data.disease);
       })
       .catch(error => {
-        // Handle any errors
         console.error(error);
+        setResponseData("Error: Could not connect to prediction server.");
       });
   };
 
@@ -222,35 +226,35 @@ const Dashboard = () => {
         <form className='symptoms-form' onSubmit={handleSubmit} >
           <label htmlFor='symptom1'>Symptom 1:</label>
           <select id='s1' name='s1' value={selectedOptions.s1 || ''} onChange={handleChange}>
-            {options.map(option => (
+            {uniqueOptions.map(option => (
               <option key={option} value={option}>{option}</option>
             ))}
           </select>
 
           <label htmlFor='symptom2'>Symptom 2:</label>
           <select id='s2' name='s2' value={selectedOptions.s2 || ''} onChange={handleChange}>
-            {options.map(option => (
+            {uniqueOptions.map(option => (
               <option key={option} value={option}>{option}</option>
             ))}
           </select>
 
           <label htmlFor='symptom3'>Symptom 3:</label>
           <select id='s3' name='s3' value={selectedOptions.s3 || ''} onChange={handleChange}>
-          {options.map(option => (
+            {uniqueOptions.map(option => (
               <option key={option} value={option}>{option}</option>
             ))}
           </select>
 
           <label htmlFor='symptom4'>Symptom 4:</label>
           <select id='s4' name='s4' value={selectedOptions.s4 || ''} onChange={handleChange}>
-          {options.map(option => (
+            {uniqueOptions.map(option => (
               <option key={option} value={option}>{option}</option>
             ))}
           </select>
 
           <label htmlFor='symptom5'>Symptom 5:</label>
           <select id='s5' name='s5' value={selectedOptions.s5 || ''} onChange={handleChange}>
-          {options.map(option => (
+            {uniqueOptions.map(option => (
               <option key={option} value={option}>{option}</option>
             ))}
           </select>
@@ -278,7 +282,8 @@ const Dashboard = () => {
                 {/* You have a disease !! */}
                 {responseData && (
                   <div>
-                    <pre>{JSON.stringify(responseData, null, 2)}</pre>
+                    <h3>Predicted Disease:</h3>
+                    <p>{responseData}</p>
                   </div>
                 )}
               </div>
