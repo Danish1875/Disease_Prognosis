@@ -89,9 +89,7 @@ def index() :
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0')
-@app.route('/', methods=['GET'])
-def index() :
-    return 'Disease Prognosis'
 
-if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0')
+# The above code is a Flask application that serves as a disease prognosis system.
+# It uses a pre-trained Naive Bayes model to predict diseases based on user-input symptoms.
+# The application listens for POST requests at the '/predict' endpoint, processes the symptoms, and returns the predicted disease as a JSON response.
